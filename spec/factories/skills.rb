@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :skill do
-    name "MyString"
-    level "MyString"
+    name "Super punch"
+    level rand(0..5)
   end
 end
