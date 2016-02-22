@@ -1,6 +1,7 @@
 class HeroesController < ApplicationController
 
   def index
+    @heroes = Hero.all
   end
 
   def new
@@ -8,5 +9,5 @@ class HeroesController < ApplicationController
 
   def show
   end
-  
+
 end
