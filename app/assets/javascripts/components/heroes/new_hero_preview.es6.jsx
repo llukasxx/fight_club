@@ -16,7 +16,7 @@ class NewHeroPreview extends React.Component {
         <h2>Hero Preview</h2>
         <div>
           <div className="panel panel-default">
-              <div className="panel-heading"><b>{`${this.props.firstName} ${this.props.lastName}`}</b></div>
+              <div className="panel-heading"><h4><b>{`${this.props.firstName} ${this.props.lastName}`}</b></h4></div>
               <div className="panel-body">
                 <p>{this.props.description}</p>
               </div>

@@ -1,13 +1,31 @@
 class NewHeroSkill extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {confirmable: false}
+    this.checkValue = this.checkValue.bind(this);
+  }
+  checkValue(event) {
+    let inputTarget;
+    if(event == undefined) {
+      inputTarget = $('#skill-name').val();
+    } else {
+      inputTarget = event.target.value;
+    }
+    if(inputTarget.length > 0) {
+      this.setState({confirmable: true})
+    } else {
+      this.setState({confirmable: false})
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    this.checkValue();
   }
   render() {
     return (
       <div className={this.props.visible ? "" : "hidden"}>
         Skill name: 
         <div className="input-group input-group-sm">
-          <input id="skill-name" type="text" className="form-control"/>
+          <input id="skill-name" onChange={this.checkValue} type="text" className="form-control"/>
         </div> 
         <br />
         Skill power:
@@ -32,7 +50,7 @@ class NewHeroSkill extends React.Component {
           </select>
         </div>
         <br />
-        <button className="btn btn-success" onClick={this.props.addSkill}>
+        <button disabled={!this.state.confirmable} className="btn btn-success" onClick={this.props.addSkill}>
           Confirm
         </button>
       </div>
