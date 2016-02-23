@@ -1,10 +1,13 @@
 class NewHero extends React.Component {
   constructor(props) {
     super(props);
-    this.state =  {firstName: "", lastName: "", description: "", skills: {} };
+    this.state =  {firstName: "", lastName: "", description: "", skills: [], addSkillVisible: false };
     this.handleFirstName = this.handleFirstName.bind(this);
     this.handleLastName = this.handleLastName.bind(this);
     this.handleDescription = this.handleDescription.bind(this);
+    this.addSkillForm = this.addSkillForm.bind(this);
+    this.addSkill = this.addSkill.bind(this);
+    this.removeSkill = this.removeSkill.bind(this);
   }
   handleFirstName(event) {
     let firstName = event.target.value;
@@ -17,6 +20,29 @@ class NewHero extends React.Component {
   handleDescription(event) {
     let description = event.target.value;
     this.setState({description: description});
+  }
+  addSkillForm(event) {
+    event.preventDefault();
+    let toggle = !this.state.addSkillVisible;
+    this.setState({addSkillVisible: toggle});
+    // Resetting value of skill inputs
+    document.getElementById("skill-name").value = "";
+    document.getElementById("skill-power").value = 0;
+  }
+  addSkill(event) {
+    event.preventDefault();
+    let skillName = document.getElementById("skill-name").value;
+    let skillPower = document.getElementById("skill-power").value;
+    let tempSkills = this.state.skills;
+    tempSkills.push({skillName: skillName, skillPower: skillPower});
+    this.setState({skills: tempSkills});
+    this.addSkillForm(event);
+  }
+  removeSkill(event) {
+    let skillIndex = event.currentTarget.id;
+    let tempSkills = this.state.skills;
+    tempSkills.splice(skillIndex, 1);
+    this.setState({skills: tempSkills});
   }
   render () {
     return (
@@ -43,12 +69,22 @@ class NewHero extends React.Component {
                       name="description"
                       value={this.state.description}
                       onChange={this.handleDescription}/><br />
+            <NewHeroSkill visible={this.state.addSkillVisible} 
+                          addSkill={this.addSkill}/>
+            <br />
+            <button className={`btn btn-${this.state.addSkillVisible ? "danger" : "info"}`} onClick={this.addSkillForm}>
+              {this.state.addSkillVisible ? "Cancel" : "Add skill"} 
+              <span className={`glyphicon glyphicon-${this.state.addSkillVisible ? "minus" : "plus"}`}/>
+            </button>
+            <hr />
             <button className="btn btn-success btn-lg center-block">Sign new Hero</button>
           </form>
         </div>
         <NewHeroPreview firstName={this.state.firstName} 
                         lastName={this.state.lastName} 
-                        description={this.state.description}/>
+                        description={this.state.description}
+                        skills={this.state.skills}
+                        removeSkill={this.removeSkill}/>
       </div>
     );
   }
