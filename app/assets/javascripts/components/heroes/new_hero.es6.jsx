@@ -34,7 +34,7 @@ class NewHero extends React.Component {
     let skillName = document.getElementById("skill-name").value;
     let skillPower = document.getElementById("skill-power").value;
     let tempSkills = this.state.skills;
-    tempSkills.push({skillName: skillName, skillPower: skillPower});
+    tempSkills.push({skillName: skillName, skillPower: parseInt(skillPower)});
     this.setState({skills: tempSkills});
     this.addSkillForm(event);
   }

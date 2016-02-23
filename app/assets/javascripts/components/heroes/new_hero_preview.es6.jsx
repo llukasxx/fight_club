@@ -2,6 +2,7 @@ class NewHeroPreview extends React.Component {
   constructor(props) {
     super(props);
     this.checkProps = this.checkProps.bind(this);
+    this.totalPower = this.totalPower.bind(this);
   }
   checkProps() {
     if(this.props.firstName.length > 0 
@@ -22,11 +23,18 @@ class NewHeroPreview extends React.Component {
       return "btn btn-danger"
     }
   }
+  totalPower() {
+    let totalPower = 0;
+    this.props.skills.map(function(element) {
+      totalPower += element.skillPower;
+    })
+    return totalPower;
+  }
   render () {
     return (
       <div className="col-md-4 col-md-offset-1">
         <h2>Hero Preview</h2>
-        <div className={this.checkProps() ? "" : ""}>
+        <div className={this.checkProps() ? "" : "hidden"}>
           <div className="panel panel-default">
               <div className="panel-heading"><b>{`${this.props.firstName} ${this.props.lastName}`}</b></div>
               <div className="panel-body">
@@ -44,7 +52,7 @@ class NewHeroPreview extends React.Component {
                             </div>)
                   }, this)}
                 </li>
-                <li className="list-group-item"><b>Total power:</b> 0/15
+                <li className="list-group-item"><b>Total power:</b> {this.totalPower()}/15
                   <PowerBar />
                 </li>
               </ul>
