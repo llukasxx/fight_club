@@ -55,6 +55,14 @@ class NewHeroPreview extends React.Component {
                 <li className="list-group-item"><b>Total power:</b> {this.totalPower()}/10
                   <PowerBar totalPower={this.totalPower()}/>
                 </li>
+                <li className="list-group-item">
+                  <b>Every hero must abide rules below:</b>
+                  <NewHeroValidation firstName={this.props.firstName} 
+                                     lastName={this.props.lastName}
+                                     description={this.props.description}
+                                     skills={this.props.skills}
+                                     totalPower={this.totalPower()}/>
+                </li>
               </ul>
           </div>
         </div>

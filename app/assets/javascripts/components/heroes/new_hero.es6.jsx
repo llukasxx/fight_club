@@ -8,6 +8,7 @@ class NewHero extends React.Component {
     this.addSkillForm = this.addSkillForm.bind(this);
     this.addSkill = this.addSkill.bind(this);
     this.removeSkill = this.removeSkill.bind(this);
+    this.submitHero = this.submitHero.bind(this);
   }
   handleFirstName(event) {
     let firstName = event.target.value;
@@ -44,6 +45,10 @@ class NewHero extends React.Component {
     tempSkills.splice(skillIndex, 1);
     this.setState({skills: tempSkills});
   }
+  submitHero(event) {
+    event.preventDefault();
+    console.log('hero')
+  }
   render () {
     return (
       <div className="container">
@@ -77,7 +82,7 @@ class NewHero extends React.Component {
               <span className={`glyphicon glyphicon-${this.state.addSkillVisible ? "minus" : "plus"}`}/>
             </button>
             <hr />
-            <button className="btn btn-success btn-lg center-block">Sign new Hero</button>
+            <button onClick={this.submitHero} className="disabled btn btn-success btn-lg center-block">Sign new Hero</button>
           </form>
         </div>
         <NewHeroPreview firstName={this.state.firstName} 

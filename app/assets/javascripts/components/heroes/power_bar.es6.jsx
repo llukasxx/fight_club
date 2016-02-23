@@ -18,6 +18,8 @@ class PowerBar extends React.Component {
       percentage = (totalPower-8) * 10;
       percentage = String(percentage) + "%";
       this.setState({green: "50%", yellow: "30%", red: percentage});
+    } else if (totalPower > 10) {
+      this.setState({green: "50%", yellow: "30%", red: "20%"});
     }
   }
   componentWillReceiveProps(nextProps) {
