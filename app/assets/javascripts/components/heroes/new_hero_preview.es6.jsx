@@ -52,8 +52,8 @@ class NewHeroPreview extends React.Component {
                             </div>)
                   }, this)}
                 </li>
-                <li className="list-group-item"><b>Total power:</b> {this.totalPower()}/15
-                  <PowerBar />
+                <li className="list-group-item"><b>Total power:</b> {this.totalPower()}/10
+                  <PowerBar totalPower={this.totalPower()}/>
                 </li>
               </ul>
           </div>
