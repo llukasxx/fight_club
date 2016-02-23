@@ -47,7 +47,7 @@ class NewHeroPreview extends React.Component {
                     return (<div key={index} className="btn-group"  style={{padding: "0px 0px 5px 5px"}}>
                               <button type="button" className={`btn ${this.skillColor(element.skillPower)} btn-sm`}>{`${element.skillName} ${element.skillPower}/5`}</button>
                               <button id={index} onClick={this.props.removeSkill} type="button" className={`btn ${this.skillColor(element.skillPower)} btn-sm`}>
-                                <span className="glyphicon glyphicon-minus"></span>
+                                <span className="glyphicon glyphicon-remove"></span>
                               </button>
                             </div>)
                   }, this)}
