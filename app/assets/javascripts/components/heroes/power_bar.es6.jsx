@@ -1,40 +1,57 @@
 class PowerBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {green: "0%", yellow: "0%", red: "0%"}
+    this.state = {wind: "0%", water: "0%", earth: "0%", fire: "0%"}
     this.calculatePower = this.calculatePower.bind(this);
   }
-  calculatePower(totalPower) {
-    let percentage = 0;
-    if(totalPower <= 5) {
-      percentage = totalPower * 10;
-      percentage = String(percentage) + "%";
-      this.setState({green: percentage, yellow: "0%", red: "0%"});
-    } else if (totalPower > 5 && totalPower <= 8) {
-      percentage = (totalPower-5) * 10;
-      percentage = String(percentage) + "%";
-      this.setState({green: "50%", yellow: percentage, red: "0%"});
-    } else if (totalPower > 8 && totalPower <= 10) {
-      percentage = (totalPower-8) * 10;
-      percentage = String(percentage) + "%";
-      this.setState({green: "50%", yellow: "30%", red: percentage});
-    } else if (totalPower > 10) {
-      this.setState({green: "50%", yellow: "30%", red: "20%"});
+  calculatePower(skills) {
+    let wind = 0;
+    let water = 0;
+    let earth = 0;
+    let fire = 0;
+    if(skills.length > 0) {
+      skills.map(function(element) {
+        switch(element.skillElement) {
+          case 'wind':
+            wind += element.skillPower;
+            break;
+          case 'water':
+            water += element.skillPower;
+            break;
+          case 'earth':
+            earth += element.skillPower;
+            break;
+          case 'fire':
+            fire += element.skillPower;
+            break;
+        }
+      });
     }
+    this.setState({wind: String(wind*10)+ "%", 
+                   water: String(water*10)+ "%", 
+                   earth: String(earth*10)+ "%", 
+                   fire: String(fire*10)+ "%"})
   }
   componentWillReceiveProps(nextProps) {
-    this.calculatePower(nextProps.totalPower);
+    this.calculatePower(nextProps.skills);
   }
   render() {
-    return (
-      <div className="progress">
-        <div className="progress-bar progress-bar-success" style={{width: this.state.green}}>
-        </div>
-        <div className="progress-bar progress-bar-warning" style={{width: this.state.yellow}}>
-        </div>
-        <div className="progress-bar progress-bar-danger" style={{width: this.state.red}}>
-        </div>
-      </div>
-    )
+    if (this.props.totalPower < 11) {
+      return (
+        <div className="progress">
+          <div className="progress-bar wind" style={{width: this.state.wind}}>
+          </div>
+          <div className="progress-bar water" style={{width: this.state.water}}>
+          </div>
+          <div className="progress-bar earth" style={{width: this.state.earth}}>
+          </div>
+          <div className="progress-bar fire" style={{width: this.state.fire}}>
+          </div>
+        </div>)
+    } else {
+      return(
+        <p className="bg-danger"><small><b>Danger: </b><i>power overwhelmed, please remove some skill.</i></small></p>
+      )
+    }
   }
 }

@@ -20,17 +20,17 @@ RSpec.describe Hero, type: :model do
       end
 
       it "is invalid with one skill" do
-        @hero.skills.new(name: FFaker::Skill, level: rand(0..5))
+        @hero.skills.new(name: FFaker::Skill, level: rand(0..5), element: "water")
         expect(@hero).to be_invalid
       end
 
       it "is valid with 3..10 skills" do
-        rand(3..10).times { @hero.skills.new(name: FFaker::Skill, level: rand(0..5)) }
+        rand(3..10).times { @hero.skills.new(name: FFaker::Skill, level: rand(0..5), element: "fire") }
         expect(@hero).to be_valid
       end
 
       it "is invalid with eleven skills" do
-        11.times { @hero.skills.new(name: FFaker::Skill, level: rand(0..5)) }
+        11.times { @hero.skills.new(name: FFaker::Skill, level: rand(0..5), element: "earth") }
         expect(@hero).to be_invalid
       end
     end

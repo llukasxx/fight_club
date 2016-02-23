@@ -29,13 +29,15 @@ class NewHero extends React.Component {
     // Resetting value of skill inputs
     document.getElementById("skill-name").value = "";
     document.getElementById("skill-power").value = 0;
+    document.getElementById("skill-element").value = "wind";
   }
   addSkill(event) {
     event.preventDefault();
     let skillName = document.getElementById("skill-name").value;
     let skillPower = document.getElementById("skill-power").value;
+    let skillElement = document.getElementById("skill-element").value;
     let tempSkills = this.state.skills;
-    tempSkills.push({skillName: skillName, skillPower: parseInt(skillPower)});
+    tempSkills.push({skillName: skillName, skillPower: parseInt(skillPower), skillElement: skillElement});
     this.setState({skills: tempSkills});
     this.addSkillForm(event);
   }

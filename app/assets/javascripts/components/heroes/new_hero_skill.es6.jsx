@@ -22,6 +22,16 @@ class NewHeroSkill extends React.Component {
           </select>
         </div>
         <br />
+        Skill element:
+        <div className="input-group input-group-sm">
+          <select id="skill-element" name="element" className="form-control">
+            <option value="wind">wind</option>
+            <option value="water">water</option>
+            <option value="earth">earth</option>
+            <option value="fire">fire</option>
+          </select>
+        </div>
+        <br />
         <button className="btn btn-success" onClick={this.props.addSkill}>
           Confirm
         </button>

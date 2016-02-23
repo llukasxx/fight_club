@@ -1,27 +1,7 @@
 class NewHeroPreview extends React.Component {
   constructor(props) {
     super(props);
-    this.checkProps = this.checkProps.bind(this);
     this.totalPower = this.totalPower.bind(this);
-  }
-  checkProps() {
-    if(this.props.firstName.length > 0 
-      || this.props.lastName.length > 0 
-      || this.props.description.length > 0
-      || this.props.skills.length > 0) {
-      return true
-    } else {
-      return false
-    }
-  }
-  skillColor(power) {
-    if(power < 3) {
-      return "btn btn-success"
-    } else if (power > 2 && power < 5) {
-      return "btn btn-warning"
-    } else {
-      return "btn btn-danger"
-    }
   }
   totalPower() {
     let totalPower = 0;
@@ -34,7 +14,7 @@ class NewHeroPreview extends React.Component {
     return (
       <div className="col-md-4 col-md-offset-1">
         <h2>Hero Preview</h2>
-        <div className={this.checkProps() ? "" : "hidden"}>
+        <div>
           <div className="panel panel-default">
               <div className="panel-heading"><b>{`${this.props.firstName} ${this.props.lastName}`}</b></div>
               <div className="panel-body">
@@ -45,18 +25,18 @@ class NewHeroPreview extends React.Component {
                 <li className="list-group-item"><b>Skills:</b>
                   {this.props.skills.map(function(element, index) {
                     return (<div key={index} className="btn-group"  style={{padding: "0px 0px 5px 5px"}}>
-                              <button type="button" className={`btn ${this.skillColor(element.skillPower)} btn-sm`}>{`${element.skillName} ${element.skillPower}/5`}</button>
-                              <button id={index} onClick={this.props.removeSkill} type="button" className={`btn ${this.skillColor(element.skillPower)} btn-sm`}>
+                              <button type="button" className={`btn btn-sm ${element.skillElement}`}>{`${element.skillName} ${element.skillPower}/5`}</button>
+                              <button id={index} onClick={this.props.removeSkill} type="button" className={`btn  btn-sm ${element.skillElement}`}>
                                 <span className="glyphicon glyphicon-remove"></span>
                               </button>
                             </div>)
                   }, this)}
                 </li>
                 <li className="list-group-item"><b>Total power:</b> {this.totalPower()}/10
-                  <PowerBar totalPower={this.totalPower()}/>
+                  <PowerBar skills={this.props.skills} totalPower={this.totalPower()}/>
                 </li>
                 <li className="list-group-item">
-                  <b>Every hero must abide rules below:</b>
+                  <b>Every hero must abide following rules:</b>
                   <NewHeroValidation firstName={this.props.firstName} 
                                      lastName={this.props.lastName}
                                      description={this.props.description}
