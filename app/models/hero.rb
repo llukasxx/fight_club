@@ -4,8 +4,24 @@ class Hero < ActiveRecord::Base
   validates :last_name, presence: true
   validates :description, presence: true
   validates :skills, length: {minimum: 3, maximum: 10}
+  validate :total_level
   
   # Associations
   has_many :skills, dependent: :destroy
+
+  def total_power
+    skills.pluck(:level).sum
+  end
+
+  private
+    
+    def total_level
+      sum = skills.map { |s| s.level }.sum
+      if sum > 10
+        errors.add(:skills, "total power can't be greater than 10")
+      elsif sum < 5
+        errors.add(:skills, "total power can't be less than 10")
+      end
+    end
 
 end
