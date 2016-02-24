@@ -1,7 +1,7 @@
 class NewHero extends React.Component {
   constructor(props) {
     super(props);
-    this.state =  {firstName: "", lastName: "", description: "", 
+    this.state =  {firstName: "", lastName: "", description: "",
                    skills: [], addSkillVisible: false,
                    sendable: false, 
                    validations: {validFields: false, 
@@ -10,6 +10,7 @@ class NewHero extends React.Component {
     this.handleFirstName = this.handleFirstName.bind(this);
     this.handleLastName = this.handleLastName.bind(this);
     this.handleDescription = this.handleDescription.bind(this);
+    this.handleAvatar = this.handleAvatar.bind(this);
     this.addSkillForm = this.addSkillForm.bind(this);
     this.addSkill = this.addSkill.bind(this);
     this.removeSkill = this.removeSkill.bind(this);
@@ -31,6 +32,25 @@ class NewHero extends React.Component {
   handleDescription(event) {
     let description = event.target.value;
     this.setState({description: description});
+  }
+  handleAvatar(event) {
+    let file    = $('#avatar')[0].files[0];
+    let reader  = new FileReader();
+    let image = new Image();
+    reader.addEventListener("load", function () {
+      image.height = 100;
+      image.width = 100;
+      image.title = file.name;
+      image.src = this.result;
+      image.id = "avatar-preview"
+    }, false);
+
+    if (file) {
+      reader.readAsDataURL(file);
+      $('#avatar-preview').replaceWith(image);
+    } else {
+      $('#avatar-preview').replaceWith($(`<img id="avatar-preview"/>`))
+    }
   }
   addSkillForm(event) {
     event.preventDefault();
@@ -132,6 +152,12 @@ class NewHero extends React.Component {
                    name="lastName"
                    value={this.state.lastName}
                    onChange={this.handleLastName}/><br />
+            Avatar:<br />
+            <input type="file"
+                   id="avatar"
+                   onChange={this.handleAvatar}/>
+            <p><small><i>*avatar will be resized to 100x100</i></small></p>
+            <br />
             Hero description:<br />
             <textarea type="text" 
                       className="form-control" 

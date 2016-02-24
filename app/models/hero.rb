@@ -8,6 +8,9 @@ class Hero < ActiveRecord::Base
   
   # Associations
   has_many :skills, dependent: :destroy
+  # Carrierwave
+  mount_uploader :avatar, AvatarUploader
+  
 
   def total_power
     skills.pluck(:level).sum
