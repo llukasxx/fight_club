@@ -7,10 +7,11 @@ class NewHeroPreview extends React.Component {
       <div className="col-md-4 col-md-offset-1">
         <h2>Hero Preview</h2>
         <div>
-          <div className="panel panel-default">
+          <div className="panel panel-info">
               <div className="panel-heading"><h4><b>{`${this.props.firstName} ${this.props.lastName}`}</b></h4></div>
               <div className="panel-body">
                 <img id="avatar-preview"/>
+                <hr />
                 <p>{this.props.description}</p>
               </div>
 

@@ -38,7 +38,6 @@ class NewHero extends React.Component {
     let reader  = new FileReader();
     let image = new Image();
     reader.addEventListener("load", function () {
-      image.height = 100;
       image.width = 100;
       image.title = file.name;
       image.src = this.result;
@@ -131,8 +130,30 @@ class NewHero extends React.Component {
     }
   }
   submitHero(event) {
+    // code in this function is just "magic".
     event.preventDefault();
-    console.log(this.state)
+    let formData = new FormData();
+    formData.append('hero[first_name]', this.state.firstName);
+    formData.append('hero[last_name]', this.state.lastName);
+    formData.append('hero[description]', this.state.description);
+    formData.append('hero[avatar]', $('#avatar')[0].files[0]);
+    this.state.skills.map(function(element, index) {
+      let key = `hero[skills_attributes][${parseInt(index)}]`;
+      formData.append(key + '[name]', element.skillName);
+      formData.append(key + '[element]', element.skillElement);
+      formData.append(key + '[level]', element.skillPower);
+    });
+    $.ajax({
+      url: '/heroes',
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      type: 'POST',
+      success: function(data){
+        console.log(data);
+      }
+    });
   }
   render () {
     return (
@@ -156,7 +177,7 @@ class NewHero extends React.Component {
             <input type="file"
                    id="avatar"
                    onChange={this.handleAvatar}/>
-            <p><small><i>*avatar will be resized to 100x100</i></small></p>
+            <p><small><i>*avatar will be resized to fit 100x100</i></small></p>
             <br />
             Hero description:<br />
             <textarea type="text" 

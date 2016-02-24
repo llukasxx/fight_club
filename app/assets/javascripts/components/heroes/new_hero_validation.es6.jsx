@@ -7,7 +7,7 @@ class NewHeroValidation extends React.Component {
       <ul className="list-group">
         <li className={`list-group-item list-group-item-${this.props.validations.validFields ? "success" : "danger"}`}>
           <span className={`glyphicon glyphicon-${this.props.validFields ? "ok" : "remove"}`}></span>
-          Hero's first name, last name, avatar and description must be present.
+          Hero's first name, last name and description must be present.
         </li>
         <li className={`list-group-item list-group-item-${this.props.validations.validSkills ? "success" : "danger"}`}>
           <span className={`glyphicon glyphicon-${this.props.validSkills ? "ok" : "remove"}`}></span>

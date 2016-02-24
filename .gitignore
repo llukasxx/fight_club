@@ -11,6 +11,6 @@
 /log/*
 !/log/.keep
 /tmp
-
+/public/uploads
 # Ignore local db config
 /config/database.yml

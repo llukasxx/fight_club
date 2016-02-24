@@ -8,6 +8,7 @@ class Hero < ActiveRecord::Base
   
   # Associations
   has_many :skills, dependent: :destroy
+  accepts_nested_attributes_for :skills
   # Carrierwave
   mount_uploader :avatar, AvatarUploader
   
