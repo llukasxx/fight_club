@@ -1,14 +1,6 @@
 class NewHeroPreview extends React.Component {
   constructor(props) {
     super(props);
-    this.totalPower = this.totalPower.bind(this);
-  }
-  totalPower() {
-    let totalPower = 0;
-    this.props.skills.map(function(element) {
-      totalPower += element.skillPower;
-    })
-    return totalPower;
   }
   render () {
     return (
@@ -32,8 +24,8 @@ class NewHeroPreview extends React.Component {
                             </div>)
                   }, this)}
                 </li>
-                <li className="list-group-item"><b>Total power:</b> {this.totalPower()}/10
-                  <PowerBar skills={this.props.skills} totalPower={this.totalPower()}/>
+                <li className="list-group-item"><b>Total power:</b> {this.props.totalPower}/10
+                  <PowerBar skills={this.props.skills} totalPower={this.props.totalPower}/>
                 </li>
                 <li className="list-group-item">
                   <b>Every hero must abide following rules:</b>
@@ -41,7 +33,8 @@ class NewHeroPreview extends React.Component {
                                      lastName={this.props.lastName}
                                      description={this.props.description}
                                      skills={this.props.skills}
-                                     totalPower={this.totalPower()}/>
+                                     totalPower={this.props.totalPower}
+                                     validations={this.props.validations}/>
                 </li>
               </ul>
           </div>
