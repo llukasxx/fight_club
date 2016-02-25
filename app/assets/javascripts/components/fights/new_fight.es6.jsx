@@ -10,16 +10,13 @@ class NewFight extends React.Component {
   render() {
     let heroes = [];
     this.props.heroes.map(function(element, index) {
-      heroes.push(<a key={index} className="list-group-item">
-                    {`${element.first_name} ${element.last_name}`}
-                    <span className="pull-right glyphicon glyphicon-circle-arrow-down"></span>
-                  </a>)
-    });
+      heroes.push(<HeroListItem key={index} avatarSrc={element.avatar.url} firstName={element.first_name} lastName={element.last_name}/>);
+    })
     return (
       <div className="container">
-        <div className="col-md-4 col-md-offset-1">
-          <div className="panel panel-default">
-            <div className="panel-heading">Hero selection</div>
+        <div className="col-md-4 col-md-offset-1 col-lg-4 col-lg-offset-1">
+          <div className="panel panel-info">
+            <div className="panel-heading"><b>Hero selection</b></div>
             <div className="panel-body">
               <p>In order to start a fight select two heroes from list below.</p>
             </div>
@@ -29,6 +26,7 @@ class NewFight extends React.Component {
             </div>
           </div>
         </div>
+        <NewFightWindow />
       </div>
     )
   }

@@ -1,7 +1,7 @@
 class HeroesController < ApplicationController
 
   def index
-    @heroes = Hero.all
+    @heroes = Hero.all.includes(:skills)
   end
 
   def new
