@@ -3,8 +3,12 @@ class HeroListItem extends React.Component {
     super(props)
   }
   render() {
-    heroSkills = [];
-    
+    let heroSkills = [];
+    this.props.skills.map(function(element, index) {
+      heroSkills.push(<li key={index} className="list-group-item">
+                        <b>{element.name}</b> | {element.level}/5 | {element.element} 
+                      </li>);
+    });
     return (
       <div>
         <a className="list-group-item">
@@ -20,9 +24,7 @@ class HeroListItem extends React.Component {
             <div className="panel-body">
               Skills:
               <ul className="list-group">
-                <li className="list-group-item">
-                asdasd 
-                </li>
+                {heroSkills}
               </ul>
               Experience:
               <ul className="list-group">

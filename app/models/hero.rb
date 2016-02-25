@@ -17,6 +17,10 @@ class Hero < ActiveRecord::Base
     skills.pluck(:level).sum
   end
 
+  def avatar_url
+    avatar.url
+  end
+
   private
     
     def total_level

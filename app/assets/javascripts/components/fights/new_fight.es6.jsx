@@ -10,7 +10,8 @@ class NewFight extends React.Component {
   render() {
     let heroes = [];
     this.props.heroes.map(function(element, index) {
-      heroes.push(<HeroListItem key={index} avatarSrc={element.avatar.url} firstName={element.first_name} lastName={element.last_name}/>);
+      heroes.push(<HeroListItem key={index} avatarSrc={element.hero.avatar_url} skills={element.hero.skills}
+                                firstName={element.hero.first_name} lastName={element.hero.last_name}/>);
     })
     return (
       <div className="container">
