@@ -3,7 +3,7 @@ class NewHero extends React.Component {
     super(props);
     this.state =  {firstName: "", lastName: "", description: "",
                    skills: [], addSkillVisible: false,
-                   sendable: false, 
+                   sendable: false, finished: false,
                    validations: {validFields: false, 
                                  validSkills: false, 
                                  validPower: false}};
@@ -11,6 +11,7 @@ class NewHero extends React.Component {
     this.handleLastName = this.handleLastName.bind(this);
     this.handleDescription = this.handleDescription.bind(this);
     this.handleAvatar = this.handleAvatar.bind(this);
+    this.handleFinish = this.handleFinish.bind(this);
     this.addSkillForm = this.addSkillForm.bind(this);
     this.addSkill = this.addSkill.bind(this);
     this.removeSkill = this.removeSkill.bind(this);
@@ -50,6 +51,10 @@ class NewHero extends React.Component {
     } else {
       $('#avatar-preview').replaceWith($(`<img id="avatar-preview"/>`))
     }
+  }
+  handleFinish(event) {
+    event.preventDefault();
+    this.setState({finished: false});
   }
   addSkillForm(event) {
     event.preventDefault();
@@ -151,13 +156,31 @@ class NewHero extends React.Component {
       processData: false,
       type: 'POST',
       success: function(data){
-        console.log(data);
-      }
-    });
+        if(data.errors) {
+          alert(data.errors)
+        } else {
+          $('#avatar').val('');
+          $('#avatar-preview').replaceWith($(`<img id="avatar-preview"/>`));
+          this.setState({firstName: "", lastName: "", description: "",
+                         skills: [], addSkillVisible: false,
+                         sendable: false, finished: true,
+                         validations: {validFields: false, 
+                                       validSkills: false, 
+                                       validPower: false}});
+        }
+      }.bind(this)
+    }, this);
   }
   render () {
     return (
       <div className="container">
+        <div className={this.state.finished ? "alert alert-success" : "hidden"}>
+          <p>
+            <span className="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+            Hero has been successfully recruited!
+            <span onClick={this.handleFinish} className="pull-right glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </p>
+        </div>
         <div className="col-md-4 col-md-offset-1">
           <h2 className="text-center">New Hero creator</h2>
           <form onKeyUp={this.checkValidations}>
