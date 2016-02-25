@@ -4,7 +4,12 @@ class OponentWindow extends React.Component {
   }
   render() {
     return (
-      <p>Oponent name</p>
+      <div className={this.props.hero ? "" : "hidden"}>
+        <HeroListItem avatarSrc={this.props.hero.avatar_url} skills={this.props.hero.skills}
+                      description={this.props.hero.description} id={this.props.hero.id}
+                      firstName={this.props.hero.first_name} lastName={this.props.hero.last_name}
+                      battlefield={true}/>
+      </div>
     )
   }
 }

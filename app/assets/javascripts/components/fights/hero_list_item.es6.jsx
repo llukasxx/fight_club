@@ -1,39 +1,57 @@
 class HeroListItem extends React.Component {
   constructor(props) {
     super(props)
+    this.hostPresent = this.hostPresent.bind(this);
+    this.guestPresent = this.guestPresent.bind(this);
+    this.currentHeroPresent = this.currentHeroPresent.bind(this);
+  }
+  hostPresent() {
+
+  }
+  guestPresent() {
+
+  }
+  currentHeroPresent() {
+    if($.inArray(this.props.id, this.props.presentHeroesID) == -1) {
+      return false
+    } else {
+      return true
+    }
   }
   render() {
     let heroSkills = [];
-    this.props.skills.map(function(element, index) {
-      heroSkills.push(<li key={index} className="list-group-item">
-                        <b>{element.name}</b> | {element.level}/5 | {element.element}
-                      </li>);
-    });
+    if(this.props.skills) {
+      this.props.skills.map(function(element, index) {
+        heroSkills.push(<li key={index} className="list-group-item">
+                          <b>{element.name}</b> | {element.level}/5 | {element.element}
+                        </li>);
+      }); 
+    }
     return (
-      <div>
+      <div className={this.currentHeroPresent() ? "hidden" : ""}>
         <a className="list-group-item">
           <div className="center-block text-center">
             <h4>{`${this.props.firstName} ${this.props.lastName}`}</h4>
             <img height="100" width="100" src={this.props.avatarSrc}/>
           </div>
-          <div className="center-block text-center">
-            <button className="btn btn-info">Send as a host</button>
-            <button className="btn btn-warning">Send as a guest</button>
+          <div className={`center-block text-center ${this.props.battlefield ? "hidden" : ""}`}>
+            <button id={this.props.id} disabled={this.props.hostDisabled} onClick={this.props.sendHost} className="btn btn-info">Send as a host</button>
+            <button id={this.props.id} disabled={this.props.guestDisabled} onClick={this.props.sendGuest} className="btn btn-warning">Send as a guest</button>
           </div>
           <div className="panel panel-default">
             <div className="panel-body">
-              Description:
+              <b>Description:</b>
               <ul className="list-group">
                 <li className="list-group-item">
                   {this.props.description}
                 </li>
               </ul>
-              Skills:
+              <b>Skills:</b>
               <ul className="list-group">
                 {heroSkills}
                 <PowerBar skills={this.props.skills} totalPower={4}/>
               </ul>
-              Experience:
+              <b>Experience:</b>
               <ul className="list-group">
 
               </ul>

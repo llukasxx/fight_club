@@ -9,7 +9,7 @@ class PowerBar extends React.Component {
     let water = 0;
     let earth = 0;
     let fire = 0;
-    if(skills.length > 0) {
+    if(skills) {
       skills.map(function(element) {
         switch(element.element) {
           case 'wind':
@@ -36,7 +36,7 @@ class PowerBar extends React.Component {
     this.calculatePower(nextProps.skills);
   }
   componentDidMount() {
-    if(this.props.skills.length > 0) {
+    if(this.props.skills) {
       this.calculatePower(this.props.skills);
     }
   }

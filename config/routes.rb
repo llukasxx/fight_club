@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root 'heroes#index'
+  root 'fights#index'
   resources :heroes
-
+  resources :fights
 end
