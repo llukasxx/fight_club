@@ -1,7 +1,8 @@
 class HeroesController < ApplicationController
 
   def index
-    @heroes = Hero.all.includes(:skills)
+    @heroes = Hero.all
+    @heroes = @heroes.map { |h| HeroSerializer.new(h).as_json }
   end
 
   def new
