@@ -178,7 +178,8 @@ class NewHero extends React.Component {
           <p>
             <span className="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
             Hero has been successfully recruited!
-            <span onClick={this.handleFinish} className="pull-right glyphicon glyphicon-remove" aria-hidden="true"></span>
+            <span onClick={this.handleFinish} className="pull-right glyphicon glyphicon-remove" 
+            aria-hidden="true" style={{cursor: "pointer"}}></span>
           </p>
         </div>
         <div className="col-md-4 col-md-offset-1">

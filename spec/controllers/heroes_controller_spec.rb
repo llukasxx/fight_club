@@ -17,8 +17,13 @@ RSpec.describe HeroesController, type: :controller do
   end
 
   describe "GET #show" do
+    before(:each) do
+      @hero = build(:hero)
+      3.times {@hero.skills.new(name: 'punch', element: "fire", level: 2)}
+      @hero.save!
+    end
     it "returns http success" do
-      get :show, id: 1
+      get :show, id: @hero.id
       expect(response).to have_http_status(:success)
     end
   end
