@@ -11,6 +11,7 @@ class NewFight extends React.Component {
     let heroes = [];
     this.props.heroes.map(function(element, index) {
       heroes.push(<HeroListItem key={index} avatarSrc={element.hero.avatar_url} skills={element.hero.skills}
+                                description={element.hero.description}
                                 firstName={element.hero.first_name} lastName={element.hero.last_name}/>);
     })
     return (

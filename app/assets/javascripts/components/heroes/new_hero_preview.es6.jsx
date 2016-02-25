@@ -19,8 +19,8 @@ class NewHeroPreview extends React.Component {
                 <li className="list-group-item"><b>Skills:</b>
                   {this.props.skills.map(function(element, index) {
                     return (<div key={index} className="btn-group"  style={{padding: "0px 0px 5px 5px"}}>
-                              <button type="button" className={`btn btn-sm ${element.skillElement}`}>{`${element.skillName} ${element.skillPower}/5`}</button>
-                              <button id={index} onClick={this.props.removeSkill} type="button" className={`btn  btn-sm ${element.skillElement}`}>
+                              <button type="button" className={`btn btn-sm ${element.element}`}>{`${element.name} ${element.level}/5`}</button>
+                              <button id={index} onClick={this.props.removeSkill} type="button" className={`btn  btn-sm ${element.element}`}>
                                 <span className="glyphicon glyphicon-remove"></span>
                               </button>
                             </div>)

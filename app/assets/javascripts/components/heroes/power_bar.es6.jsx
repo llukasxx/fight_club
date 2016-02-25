@@ -11,18 +11,18 @@ class PowerBar extends React.Component {
     let fire = 0;
     if(skills.length > 0) {
       skills.map(function(element) {
-        switch(element.skillElement) {
+        switch(element.element) {
           case 'wind':
-            wind += element.skillPower;
+            wind += element.level;
             break;
           case 'water':
-            water += element.skillPower;
+            water += element.level;
             break;
           case 'earth':
-            earth += element.skillPower;
+            earth += element.level;
             break;
           case 'fire':
-            fire += element.skillPower;
+            fire += element.level;
             break;
         }
       });
@@ -34,6 +34,11 @@ class PowerBar extends React.Component {
   }
   componentWillReceiveProps(nextProps) {
     this.calculatePower(nextProps.skills);
+  }
+  componentDidMount() {
+    if(this.props.skills.length > 0) {
+      this.calculatePower(this.props.skills);
+    }
   }
   render() {
     if (this.props.totalPower < 11) {

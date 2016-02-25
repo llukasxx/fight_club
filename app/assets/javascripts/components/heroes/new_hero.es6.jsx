@@ -71,7 +71,7 @@ class NewHero extends React.Component {
     let skillPower = document.getElementById("skill-power").value;
     let skillElement = document.getElementById("skill-element").value;
     let tempSkills = this.state.skills;
-    tempSkills.push({skillName: skillName, skillPower: parseInt(skillPower), skillElement: skillElement});
+    tempSkills.push({name: skillName, level: parseInt(skillPower), element: skillElement});
     this.setState({skills: tempSkills});
     this.addSkillForm(event);
     this.checkValidations();
@@ -114,7 +114,7 @@ class NewHero extends React.Component {
   totalPower() {
     let totalPower = 0;
     this.state.skills.map(function(element) {
-      totalPower += element.skillPower;
+      totalPower += element.level;
     })
     return totalPower;
   }
@@ -144,9 +144,9 @@ class NewHero extends React.Component {
     formData.append('hero[avatar]', $('#avatar')[0].files[0]);
     this.state.skills.map(function(element, index) {
       let key = `hero[skills_attributes][${parseInt(index)}]`;
-      formData.append(key + '[name]', element.skillName);
-      formData.append(key + '[element]', element.skillElement);
-      formData.append(key + '[level]', element.skillPower);
+      formData.append(key + '[name]', element.name);
+      formData.append(key + '[element]', element.element);
+      formData.append(key + '[level]', element.level);
     });
     $.ajax({
       url: '/heroes',

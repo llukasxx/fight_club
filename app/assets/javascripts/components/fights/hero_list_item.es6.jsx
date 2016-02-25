@@ -6,7 +6,7 @@ class HeroListItem extends React.Component {
     let heroSkills = [];
     this.props.skills.map(function(element, index) {
       heroSkills.push(<li key={index} className="list-group-item">
-                        <b>{element.name}</b> | {element.level}/5 | {element.element} 
+                        <b>{element.name}</b> | {element.level}/5 | {element.element}
                       </li>);
     });
     return (
@@ -22,9 +22,16 @@ class HeroListItem extends React.Component {
           </div>
           <div className="panel panel-default">
             <div className="panel-body">
+              Description:
+              <ul className="list-group">
+                <li className="list-group-item">
+                  {this.props.description}
+                </li>
+              </ul>
               Skills:
               <ul className="list-group">
                 {heroSkills}
+                <PowerBar skills={this.props.skills} totalPower={4}/>
               </ul>
               Experience:
               <ul className="list-group">
