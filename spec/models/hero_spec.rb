@@ -6,6 +6,8 @@ RSpec.describe Hero, type: :model do
   it { should validate_presence_of(:last_name) }
   it { should validate_presence_of(:description) }
   it { should have_many(:skills) }
+  it { should have_many(:wins) }
+  it { should have_many(:loses) }
 
   describe 'skills' do
 

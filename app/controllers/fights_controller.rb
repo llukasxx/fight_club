@@ -12,4 +12,9 @@ class FightsController < ApplicationController
     
   end
 
+  def create
+    fight = Fight.new
+    render json: fight
+  end
+
 end

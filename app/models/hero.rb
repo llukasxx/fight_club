@@ -8,7 +8,10 @@ class Hero < ActiveRecord::Base
   
   # Associations
   has_many :skills, dependent: :destroy
+  has_many :wins, class_name: "Fight", foreign_key: "winner_id", dependent: :destroy
+  has_many :loses, class_name: "Fight", foreign_key: "loser_id", dependent: :destroy
   accepts_nested_attributes_for :skills
+
   # Carrierwave
   mount_uploader :avatar, AvatarUploader
   
