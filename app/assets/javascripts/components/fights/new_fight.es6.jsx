@@ -45,9 +45,9 @@ class NewFight extends React.Component {
     }, this)
     return (
       <div className="container">
-        <div className="col-md-3">
+        <div className="col-md-4">
           <div className="panel panel-info">
-            <div className="panel-heading"><b>Hero selection</b></div>
+            <div className="panel-heading"><h3 className="panel-title">Hero Selection</h3></div>
             <div className="panel-body">
               <p>In order to start a fight select two heroes from list below.</p>
             </div>

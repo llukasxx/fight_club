@@ -28,7 +28,7 @@ class Hero < ActiveRecord::Base
       if sum > 10
         errors.add(:skills, "total power can't be greater than 10")
       elsif sum < 5
-        errors.add(:skills, "total power can't be less than 10")
+        errors.add(:skills, "total power can't be less than 5")
       end
     end
 
