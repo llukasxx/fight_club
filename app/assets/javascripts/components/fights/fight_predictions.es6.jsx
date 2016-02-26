@@ -26,22 +26,25 @@ class FightPredictions extends React.Component {
     })
     return {wind: wind, water:water, earth:earth, fire: fire};
   }
-  calculateDifference(hostSkills, guestSkills) {
-    let advantage = {
+  calculateModifiers(hostSkills, guestSkills) {
+    let modifierAdvantage = {
       wind_earth: hostSkills.wind - guestSkills.earth,
       water_fire: hostSkills.water - guestSkills.fire,
       earth_water: hostSkills.earth - guestSkills.water,
       fire_wind: hostSkills.fire - guestSkills.wind,
     };
-    return advantage;
+    return modifierAdvantage;
   }
-  calculatePercentage(advantage) {
-    //55% base chance for host winning
-    let base = 55;
-    //each advantage-disadvantage point +/- 3%
-    let skillModifier = (advantage.wind_earth + advantage.water_fire 
-                        + advantage.earth_water + advantage.fire_wind) * 3;
-    let hostChance = base + skillModifier;
+  calculatePercentage(modifiers, hostPower, guestPower) {
+    let hostTotal = hostPower.wind + hostPower.water + hostPower.earth + hostPower.fire;
+    let guestTotal = guestPower.wind + guestPower.water + guestPower.earth + guestPower.fire;
+    // host base 55 +/- total opponent power
+    let hostBase = (hostTotal - guestTotal)*5 + 55
+    //each advantage-disadvantage point +/- 2%
+    //max modifier advantage can reach 20%
+    let skillModifier = (modifiers.wind_earth + modifiers.water_fire 
+                        + modifiers.earth_water + modifiers.fire_wind) * 2;
+    let hostChance = hostBase + skillModifier;
 
     return hostChance;
   }
@@ -49,8 +52,8 @@ class FightPredictions extends React.Component {
     if(nextProps.host && nextProps.guest) {
       let hostSkills = this.calculatePowerSkills(nextProps.host.skills);
       let guestSkills = this.calculatePowerSkills(nextProps.guest.skills);
-      let skillAdvantage = this.calculateDifference(hostSkills, guestSkills);
-      let hostChance = this.calculatePercentage(skillAdvantage);
+      let skillModifiers = this.calculateModifiers(hostSkills, guestSkills);
+      let hostChance = this.calculatePercentage(skillModifiers, hostSkills, guestSkills);
       let guestChance = 100 - hostChance;
       this.setState({hostChance: String(hostChance) + "%", guestChance: String(guestChance) + "%"})
     } else {
