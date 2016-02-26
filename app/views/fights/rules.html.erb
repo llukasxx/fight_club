@@ -32,11 +32,65 @@
     </ul>
     <li>Experience modificators</li>
     <ul>
-      <li></li>
+      <li>Each experience level point greater than opponent gives +3% chance.</li>
     </ul>
     <li>Weather modificators</li>
     <ul>
-      <li></li>
+      <li>Weather can't be predicted, it's revealed when the fight is over.</li>
+      <li>It may be:</li>
+      <ul>
+        <li>Windy, each wind elemental skill level +2% chance.</li>
+        <li>Rainy, each water elemental skill point +2% chance.</li>
+        <li>Dry, each earth elemental skill point +2% chance.</li>
+        <li>Hot, each fire elemental skill point +2% chance.</li>
+      </ul>
+    </ul>
+    <li>Gaining Experience</li>
+    <ul>
+      <li>Hero can gain experience only by winning fights.</li>
+      <li>Fight winner gets 10 experience points base.</li>
+      <li>Experience modificators</li>
+      <ul>
+        <li>If winner's chance(including weather) was more than 55%, he loses 2 experience points per every next 5%.</li>
+        <li>Example: Hero won fight with 70% chance, he gained 2 experience points. <small>(warning: winning fights with 75%+ chance doesn't give experince at all!)</small></li>
+        <li>If winner's chance(including weather) was less than 45%, he gains additional 2 experience points per every lesser 5%</li>
+        <li>Example: Hero won fight with 35% chance, he gained additional 6 experience points, 16 totally.</li>
+      </ul>
+      <li>Maxium experience level is 6.</li>
+      <li>Hero can't lost experience.</li>
+      <li>Experience-level table:</li>
+      <table class="table">
+        <thead>
+          <th>level</th>
+          <th>Required experience points</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>30</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>90</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>270</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>810</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>2430</td>
+          </tr>
+        </tbody>
+      </table>
     </ul>
   </ol>
 </div>
