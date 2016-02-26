@@ -26,25 +26,56 @@ class FightPredictions extends React.Component {
     })
     return {wind: wind, water:water, earth:earth, fire: fire};
   }
-  calculateModifiers(hostSkills, guestSkills) {
+  calculateModifiers(firstPlayer, secondPlayer) {
     let modifierAdvantage = {
-      wind_earth: hostSkills.wind - guestSkills.earth,
-      water_fire: hostSkills.water - guestSkills.fire,
-      earth_water: hostSkills.earth - guestSkills.water,
-      fire_wind: hostSkills.fire - guestSkills.wind,
+      wind_earth: 0,
+      water_fire: 0,
+      earth_water: 0,
+      fire_wind: 0,
     };
+    
+    if(firstPlayer.wind > 0 && secondPlayer.earth > 0) {
+      if(firstPlayer.wind >= secondPlayer.earth) {
+        modifierAdvantage.wind_earth = secondPlayer.earth * 0.2
+      } else if(firstPlayer.wind < secondPlayer.earth) {
+        modifierAdvantage.wind_earth = firstPlayer.wind * 0.2
+      }
+    }
+    if(firstPlayer.water > 0 && secondPlayer.fire > 0) {
+      if(firstPlayer.water >= secondPlayer.fire) {
+        modifierAdvantage.wind_earth = secondPlayer.fire * 0.2
+      } else if(firstPlayer.water < secondPlayer.fire) {
+        modifierAdvantage.wind_earth = firstPlayer.water * 0.2
+      }
+    }
+    if(firstPlayer.earth > 0 && secondPlayer.water > 0) {
+      if(firstPlayer.earth >= secondPlayer.water) {
+        modifierAdvantage.earth_water = secondPlayer.water * 0.2
+      } else if(firstPlayer.earth < secondPlayer.water) {
+        modifierAdvantage.earth_water = firstPlayer.earth * 0.2
+      }
+    }
+    if(firstPlayer.fire > 0 && secondPlayer.wind > 0) {
+      if(firstPlayer.fire >= secondPlayer.wind) {
+        modifierAdvantage.fire_wind = secondPlayer.wind * 0.2
+      } else if(firstPlayer.fire < secondPlayer.wind) {
+        modifierAdvantage.fire_wind = firstPlayer.fire * 0.2
+      }
+    }
+
     return modifierAdvantage;
   }
-  calculatePercentage(modifiers, hostPower, guestPower) {
-    let hostTotal = hostPower.wind + hostPower.water + hostPower.earth + hostPower.fire;
-    let guestTotal = guestPower.wind + guestPower.water + guestPower.earth + guestPower.fire;
-    // host base 55 +/- total opponent power
-    let hostBase = (hostTotal - guestTotal)*5 + 55
-    //each advantage-disadvantage point +/- 2%
-    //max modifier advantage can reach 20%
-    let skillModifier = (modifiers.wind_earth + modifiers.water_fire 
-                        + modifiers.earth_water + modifiers.fire_wind) * 2;
-    let hostChance = hostBase + skillModifier;
+  calculatePercentage(hostModifiers, guestModifiers, host, guest) {
+    let hostTotal = host.total_power;
+    let guestTotal = guest.total_power;
+    
+    let hostTotalModifiers = (hostModifiers.wind_earth + hostModifiers.water_fire 
+                              + hostModifiers.earth_water + hostModifiers.fire_wind);
+    let guestTotalModifiers = (guestModifiers.wind_earth + guestModifiers.water_fire 
+                              + guestModifiers.earth_water + guestModifiers.fire_wind);
+    hostModifiedChance = (hostTotalModifiers - guestTotalModifiers) * 10;
+    
+    let hostChance = (((hostTotal - guestTotal) * 3) + (hostModifiedChance)  + 53);
 
     return hostChance;
   }
@@ -52,8 +83,10 @@ class FightPredictions extends React.Component {
     if(nextProps.host && nextProps.guest) {
       let hostSkills = this.calculatePowerSkills(nextProps.host.skills);
       let guestSkills = this.calculatePowerSkills(nextProps.guest.skills);
-      let skillModifiers = this.calculateModifiers(hostSkills, guestSkills);
-      let hostChance = this.calculatePercentage(skillModifiers, hostSkills, guestSkills);
+      let hostModifiers = this.calculateModifiers(hostSkills, guestSkills);
+      let guestModifiers = this.calculateModifiers(guestSkills, hostSkills);
+      
+      let hostChance = this.calculatePercentage(hostModifiers, guestModifiers, nextProps.host, nextProps.guest);
       let guestChance = 100 - hostChance;
       this.setState({hostChance: String(hostChance) + "%", guestChance: String(guestChance) + "%"})
     } else {
