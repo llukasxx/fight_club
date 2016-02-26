@@ -36,30 +36,30 @@ class FightPredictions extends React.Component {
     
     if(firstPlayer.wind > 0 && secondPlayer.earth > 0) {
       if(firstPlayer.wind >= secondPlayer.earth) {
-        modifierAdvantage.wind_earth = secondPlayer.earth * 0.2
+        modifierAdvantage.wind_earth = secondPlayer.earth * 2
       } else if(firstPlayer.wind < secondPlayer.earth) {
-        modifierAdvantage.wind_earth = firstPlayer.wind * 0.2
+        modifierAdvantage.wind_earth = firstPlayer.wind * 2
       }
     }
     if(firstPlayer.water > 0 && secondPlayer.fire > 0) {
       if(firstPlayer.water >= secondPlayer.fire) {
-        modifierAdvantage.wind_earth = secondPlayer.fire * 0.2
+        modifierAdvantage.water_fire = secondPlayer.fire * 2
       } else if(firstPlayer.water < secondPlayer.fire) {
-        modifierAdvantage.wind_earth = firstPlayer.water * 0.2
+        modifierAdvantage.water_fire = firstPlayer.water * 2
       }
     }
     if(firstPlayer.earth > 0 && secondPlayer.water > 0) {
       if(firstPlayer.earth >= secondPlayer.water) {
-        modifierAdvantage.earth_water = secondPlayer.water * 0.2
+        modifierAdvantage.earth_water = secondPlayer.water * 2
       } else if(firstPlayer.earth < secondPlayer.water) {
-        modifierAdvantage.earth_water = firstPlayer.earth * 0.2
+        modifierAdvantage.earth_water = firstPlayer.earth * 2
       }
     }
     if(firstPlayer.fire > 0 && secondPlayer.wind > 0) {
       if(firstPlayer.fire >= secondPlayer.wind) {
-        modifierAdvantage.fire_wind = secondPlayer.wind * 0.2
+        modifierAdvantage.fire_wind = secondPlayer.wind * 2
       } else if(firstPlayer.fire < secondPlayer.wind) {
-        modifierAdvantage.fire_wind = firstPlayer.fire * 0.2
+        modifierAdvantage.fire_wind = firstPlayer.fire * 2
       }
     }
 
@@ -73,7 +73,7 @@ class FightPredictions extends React.Component {
                               + hostModifiers.earth_water + hostModifiers.fire_wind);
     let guestTotalModifiers = (guestModifiers.wind_earth + guestModifiers.water_fire 
                               + guestModifiers.earth_water + guestModifiers.fire_wind);
-    hostModifiedChance = (hostTotalModifiers - guestTotalModifiers) * 10;
+    hostModifiedChance = (hostTotalModifiers - guestTotalModifiers);
     
     let hostChance = (((hostTotal - guestTotal) * 3) + (hostModifiedChance)  + 53);
 

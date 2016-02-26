@@ -24,6 +24,22 @@ class Hero < ActiveRecord::Base
     avatar.url
   end
 
+  def wind_power
+    skills.where(element: 'wind').pluck(:level).sum
+  end
+
+  def water_power
+    skills.where(element: 'water').pluck(:level).sum
+  end
+
+  def earth_power
+    skills.where(element: 'earth').pluck(:level).sum
+  end
+
+  def fire_power
+    skills.where(element: 'fire').pluck(:level).sum
+  end
+
   private
     
     def total_level

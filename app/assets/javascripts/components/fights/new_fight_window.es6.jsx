@@ -22,6 +22,9 @@ class NewFightWindow extends React.Component {
             </div>
             <hr />
             <FightPredictions host={this.props.host} guest={this.props.guest}/>
+            <div className="center-block text-center">
+              <button disabled={!(this.props.guest && this.props.host)} onClick={this.props.submitFight} className="btn btn-lg btn-success">Fight!</button>
+            </div>
             <div className="col-md-6 pull-left host-oponnet">
               <button onClick={this.props.removeHost} className={`${this.props.host ? "" : "hidden"} text-center center-block btn btn-danger`}>
                 Remove host

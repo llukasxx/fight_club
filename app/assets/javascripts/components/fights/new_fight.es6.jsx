@@ -6,6 +6,7 @@ class NewFight extends React.Component {
     this.sendGuest = this.sendGuest.bind(this);
     this.removeHost = this.removeHost.bind(this);
     this.removeGuest = this.removeGuest.bind(this);
+    this.submitFight = this.submitFight.bind(this);
   }
   sendHost(event) {
     let hero;
@@ -33,6 +34,13 @@ class NewFight extends React.Component {
   removeGuest(event) {
     this.setState({guest: false, guestDisabled: false});
   }
+  submitFight(event) {
+    event.preventDefault();
+    $.post('/fights', {host_id: this.state.host.id, guest_id: this.state.guest.id})
+      .done(function(data) {
+        console.log(data);
+      });
+  }
   render() {
     let heroes = [];
     this.props.heroes.map(function(element, index) {
@@ -57,7 +65,7 @@ class NewFight extends React.Component {
             </div>
           </div>
         </div>
-        <NewFightWindow host={this.state.host} guest={this.state.guest} removeHost={this.removeHost} removeGuest={this.removeGuest}/>
+        <NewFightWindow submitFight={this.submitFight} host={this.state.host} guest={this.state.guest} removeHost={this.removeHost} removeGuest={this.removeGuest}/>
       </div>
     )
   }
