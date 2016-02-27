@@ -1,7 +1,8 @@
 class HeroesController < ApplicationController
 
   def index
-    
+    heroes = Hero.all.includes(:skills)
+    render json: heroes
   end
 
   def new

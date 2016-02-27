@@ -1,7 +1,8 @@
 class NewFight extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {host: false, guest: false, hostDisabled: false, guestDisabled: false};
+    this.state = {host: false, guest: false, hostDisabled: false, 
+                  guestDisabled: false, fightPerformed: false, winner: ""};
     this.sendHost = this.sendHost.bind(this);
     this.sendGuest = this.sendGuest.bind(this);
     this.removeHost = this.removeHost.bind(this);
@@ -40,8 +41,9 @@ class NewFight extends React.Component {
     event.preventDefault();
     $.post('/fights', {host_id: this.state.host.id, guest_id: this.state.guest.id})
       .done(function(data) {
-        console.log(data);
-      });
+        this.setState({fight: data.fight, winner: data.fight.winner, fightPerformed: true,
+                       host: false, guest: false, hostDisabled: false, guestDisabled: false});
+      }.bind(this));
   }
   render() {
     let heroes = [];
@@ -55,6 +57,7 @@ class NewFight extends React.Component {
     }, this)
     return (
       <div className="container">
+        <FightResult fightPerformed={this.state.fightPerformed} fight={this.state.fight} winner={this.state.winner}/>
         <div className="col-md-4">
           <div className="panel panel-info">
             <div className="panel-heading"><h3 className="panel-title">Hero Selection</h3></div>
