@@ -25,8 +25,9 @@ class FightsController < ApplicationController
       total_power_diff = calc_power_diff(host, guest)
       host_element_mod_advantage = calc_element_modifiers_advantage(host, guest)
       guest_element_mod_advantage = calc_element_modifiers_advantage(guest, host)
-
-      host_chance = 53 + (total_power_diff * 3) + (host_element_mod_advantage - guest_element_mod_advantage)
+      host_level_mod = calc_level_mod(host, guest)
+      host_chance = 53 + (total_power_diff * 3) + (host_level_mod * 3) +
+                         (host_element_mod_advantage - guest_element_mod_advantage)
     end
 
     def calc_power_diff(host, guest)
@@ -67,6 +68,10 @@ class FightsController < ApplicationController
         end
       end
       advantage
+    end
+
+    def calc_level_mod(host, guest)
+      host.level - guest.level
     end
 
 end
