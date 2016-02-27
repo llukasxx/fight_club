@@ -46,8 +46,8 @@ class NewFight extends React.Component {
     this.props.heroes.map(function(element, index) {
       heroes.push(<HeroListItem key={index} avatarSrc={element.hero.avatar_url} skills={element.hero.skills}
                                 description={element.hero.description} sendHost={this.sendHost} 
-                                sendGuest={this.sendGuest} id={element.hero.id}
-                                firstName={element.hero.first_name} lastName={element.hero.last_name}
+                                sendGuest={this.sendGuest} id={element.hero.id} level={element.hero.level}
+                                experience={element.hero.experience} firstName={element.hero.first_name} lastName={element.hero.last_name}
                                 presentHeroesID={[this.state.host.id, this.state.guest.id]}
                                 hostDisabled={this.state.hostDisabled} guestDisabled={this.state.guestDisabled}/>);
     }, this)

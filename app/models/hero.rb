@@ -14,7 +14,17 @@ class Hero < ActiveRecord::Base
 
   # Carrierwave
   mount_uploader :avatar, AvatarUploader
-  
+
+  def level
+    case experience
+      when 0..29 then 1
+      when 30..89 then 2
+      when 90..269 then 3
+      when 270..809 then 4
+      when 810..2429 then 5
+      else 6
+    end
+  end
 
   def total_power
     skills.pluck(:level).sum

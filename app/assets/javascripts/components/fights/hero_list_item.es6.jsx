@@ -1,15 +1,7 @@
 class HeroListItem extends React.Component {
   constructor(props) {
     super(props)
-    this.hostPresent = this.hostPresent.bind(this);
-    this.guestPresent = this.guestPresent.bind(this);
     this.currentHeroPresent = this.currentHeroPresent.bind(this);
-  }
-  hostPresent() {
-
-  }
-  guestPresent() {
-
   }
   currentHeroPresent() {
     if($.inArray(this.props.id, this.props.presentHeroesID) == -1) {
@@ -52,9 +44,7 @@ class HeroListItem extends React.Component {
                 <PowerBar skills={this.props.skills} totalPower={4}/>
               </ul>
               <b>Experience:</b>
-              <ul className="list-group">
-
-              </ul>
+                <ExperienceBar level={this.props.level} experience={this.props.experience}/>
             </div>
           </div>
         </a>

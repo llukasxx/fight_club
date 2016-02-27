@@ -2,7 +2,7 @@ class Fight < ActiveRecord::Base
   # validations
   validates :winner_id, presence: true
   validates :loser_id, presence: true
-  validates :weather, presence: true
+  validates :weather, presence: true, format: {with: /rainy|windy|dry|hot/} 
   validates :gained_exp, presence: true
   validates :winner_chance, presence: true
   # Associations
