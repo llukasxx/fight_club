@@ -15,11 +15,44 @@ class FightsController < ApplicationController
   def create
     host = Hero.find(params[:host_id])
     guest = Hero.find(params[:guest_id])
-    host_chances = calculate_chances host, guest
-    render json: {diff: host_chances}
+    chances = calculate_chances(host, guest)
+    winner = calculate_winner(chances)
+    gained_exp = calc_gained_exp(chances[winner.to_sym])
+
+    fight = Fight.new(winner: winner == "host" ? host : guest, 
+                      loser: winner == "host" ? guest : host,
+                      weather: chances[:weather],
+                      winner_chance: chances[winner.to_sym],
+                      gained_exp: gained_exp)
+
+    if fight.save!
+      fight.winner.experience += fight.gained_exp
+      fight.winner.save!
+      render json: fight
+    else
+      render json: fight.erros
+    end
   end
 
   private
+
+    def calculate_winner(chances)
+      host_chance = chances[:host]
+      guest_chance = chances[:guest]
+      
+      host_array = Array.new(host_chance) { |i| "host" }
+      guest_array = Array.new(guest_chance) { |i| "guest" }
+
+      chances_array = host_array + guest_array
+
+      # Super shuffling algorithm :D
+      100.times do |n|
+        shuffle = rand(0..n)
+        chances_array[n], chances_array[shuffle] = chances_array[shuffle], chances_array[n]
+      end
+
+      chances_array.sample
+    end
 
     def calculate_chances(host, guest)
       # Skill mod
@@ -38,7 +71,7 @@ class FightsController < ApplicationController
                          (host_element_mod_advantage - guest_element_mod_advantage)
       guest_chance = 100 - host_chance
 
-      chances = {host_chance: host_chance, guest_chance: guest_chance, weather: chosen_weather}
+      chances = {host: host_chance, guest: guest_chance, weather: chosen_weather}
     end
 
     def calc_power_diff(host, guest)
@@ -84,18 +117,38 @@ class FightsController < ApplicationController
     def calc_weather_mod(hero, weather)
       case weather
       when "windy"
-        hero.wind_power * 2
+        (hero.wind_power * 2) + (hero.earth_power * -2)
       when "rainy"
-        hero.water_power * 2
+        (hero.water_power * 2) + (hero.fire_power * -2)
       when "dry"
-        hero.earth_power * 2
+        (hero.earth_power * 2) + (hero.water_power * -2)
       when "hot"
-        hero.fire_power * 2
+        (hero.fire_power * 2) + (hero.wind_power * -2)
       end
     end
 
     def calc_level_mod(host, guest)
       host.level - guest.level
+    end
+
+    def calc_gained_exp(chances)
+      case chances
+        when 0..4 then 28
+        when 5..9 then 26
+        when 10..14 then 24
+        when 15..19 then 22
+        when 20..24 then 20
+        when 25..29 then 18
+        when 30..34 then 16
+        when 35..39 then 14
+        when 40..44 then 12
+        when 45..54 then 10
+        when 55..59 then 8
+        when 60..64 then 6
+        when 65..69 then 4
+        when 70..74 then 2
+        else 0
+      end
     end
 
 end
