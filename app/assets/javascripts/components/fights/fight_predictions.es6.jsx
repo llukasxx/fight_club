@@ -2,6 +2,7 @@ class FightPredictions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {hostChance: "50%", guestChance: "50%"};
+    this.calculateExpModifiers = this.calculateExpModifiers.bind(this);
   }
   calculatePowerSkills(skills) {
     let wind = 0;
@@ -65,6 +66,9 @@ class FightPredictions extends React.Component {
 
     return modifierAdvantage;
   }
+  calculateExpModifiers(hostLevel, guestLevel) {
+    return hostLevel - guestLevel;
+  }
   calculatePercentage(hostModifiers, guestModifiers, host, guest) {
     let hostTotal = host.total_power;
     let guestTotal = guest.total_power;
@@ -74,6 +78,7 @@ class FightPredictions extends React.Component {
     let guestTotalModifiers = (guestModifiers.wind_earth + guestModifiers.water_fire 
                               + guestModifiers.earth_water + guestModifiers.fire_wind);
     hostModifiedChance = (hostTotalModifiers - guestTotalModifiers);
+    let hostExpModificator = this.calculateExpModifiers();
     
     let hostChance = (((hostTotal - guestTotal) * 3) + (hostModifiedChance)  + 53);
 
@@ -85,8 +90,12 @@ class FightPredictions extends React.Component {
       let guestSkills = this.calculatePowerSkills(nextProps.guest.skills);
       let hostModifiers = this.calculateModifiers(hostSkills, guestSkills);
       let guestModifiers = this.calculateModifiers(guestSkills, hostSkills);
-      
       let hostChance = this.calculatePercentage(hostModifiers, guestModifiers, nextProps.host, nextProps.guest);
+      let hostExpMod = this.calculateExpModifiers(nextProps.host.level, nextProps.guest.level);
+
+      //applying exp mod
+      hostChance += (hostExpMod*3)
+
       let guestChance = 100 - hostChance;
       this.setState({hostChance: String(hostChance) + "%", guestChance: String(guestChance) + "%"})
     } else {

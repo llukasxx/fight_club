@@ -9,7 +9,7 @@ class OponentWindow extends React.Component {
                       description={this.props.hero.description} id={this.props.hero.id}
                       firstName={this.props.hero.first_name} lastName={this.props.hero.last_name}
                       level={this.props.hero.level}
-                      battlefield={true}/>
+                      battlefield={true} />
       </div>
     )
   }

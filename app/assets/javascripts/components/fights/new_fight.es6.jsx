@@ -16,7 +16,8 @@ class NewFight extends React.Component {
         hero = element.hero;
       }
     });
-    this.setState({host: hero, hostDisabled: true})
+    this.setState({host: hero})
+    this.setState({hostDisabled: true})
   }
   sendGuest(event) {
     let hero;
@@ -26,7 +27,8 @@ class NewFight extends React.Component {
         hero = element.hero;
       }
     });
-    this.setState({guest: hero, guestDisabled: true})
+    this.setState({guest: hero})
+    this.setState({guestDisabled: true})
   }
   removeHost(event) {
     this.setState({host: false, hostDisabled: false});

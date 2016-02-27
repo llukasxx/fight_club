@@ -1,7 +1,6 @@
 class HeroListItem extends React.Component {
   constructor(props) {
     super(props)
-    this.currentHeroPresent = this.currentHeroPresent.bind(this);
   }
   currentHeroPresent() {
     if($.inArray(this.props.id, this.props.presentHeroesID) == -1) {

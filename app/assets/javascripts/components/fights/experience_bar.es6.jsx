@@ -5,25 +5,21 @@ class ExperienceBar extends React.Component {
     this.calculateExpBar = this.calculateExpBar.bind(this);
   }
   calculateExpBar(level, experience) {
+    let exp = experience;
     switch(level) {
       case 1:
-        let exp = experience;
         return `${exp*100/30}%`
         break;
       case 2:
-        exp = experience;
         return `${exp*100/90}%`
         break;
       case 3:
-        exp = experience;
         return `${exp*100/270}%`
         break;
       case 4:
-        exp = experience;
         return `${exp*100/810}%`
         break;
       case 5:
-        exp = experience;
         return `${exp*100/2430}%`
         break;
       case 6:
@@ -33,6 +29,9 @@ class ExperienceBar extends React.Component {
   }
   componentDidMount() {
     this.setState({experience: this.calculateExpBar(this.props.level, this.props.experience)});
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({experience: this.calculateExpBar(nextProps.level, nextProps.experience)});
   }
   render() {
     return (
