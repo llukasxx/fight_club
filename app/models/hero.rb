@@ -55,7 +55,9 @@ class Hero < ActiveRecord::Base
   end
 
   def fav_weather
-    weather = wins.pluck(:weather).group_by(&:itself).values.max_by(&:size).first.capitalize
+    if wins.length > 0
+      weather = wins.pluck(:weather).group_by(&:itself).values.max_by(&:size).first.capitalize
+    end
   end
 
   def avatar_url
