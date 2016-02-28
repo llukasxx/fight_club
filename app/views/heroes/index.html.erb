@@ -1,0 +1,34 @@
+<div class="container">
+  <h1>Rankings</h1>
+  <small><i>*Heroes are ranked by experience points</i></small>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Hero</th>
+        <th>No. of fights</th>
+        <th>No. of wins</th>
+        <th>No. of loses</th>
+        <th>Win ratio</th>
+        <th>Avg exp gain per fight</th>
+        <th>Favourite weather</th>
+        <th>Experience points</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @heroes.each_with_index do |h, i|%>
+        <tr>
+          <td><%= i+1%></td>
+          <td><%= link_to "#{h.first_name} #{h.last_name}", h %></td>
+          <td><%= h.number_of_fights %></td>
+          <td><%= h.wins.count %></td>
+          <td><%= h.loses.count %></td>
+          <td><%= h.win_ratio %>%</td>
+          <td><%= h.avg_exp %></td>
+          <td><%= h.fav_weather%></td>
+          <td><%= h.experience %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

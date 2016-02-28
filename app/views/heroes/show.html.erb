@@ -35,11 +35,10 @@
         </div>
         <hr />
         <ul class="list-group">
-          <li class="list-group-item">Number of fights: <%= @hero.wins.count + @hero.loses.count %></li>
+          <li class="list-group-item">Number of fights: <%= @hero.number_of_fights %></li>
           <li class="list-group-item">Fights won: <%= @hero.wins.count %></li>
           <li class="list-group-item">Fights lost: <%= @hero.loses.count %></li>
-          <li class="list-group-item">Win ratio: <%= (@hero.wins.count.to_f/(@hero.wins.count + @hero.loses.count)*100).round(2)%>%</li>
-          <li class="list-group-item">Average win chance of won fights: <%= @hero.wins.average(:winner_chance) %>%</li>
+          <li class="list-group-item">Win ratio: <%= @hero.win_ratio %>%</li>
         </ul>
       </div>
   </div>

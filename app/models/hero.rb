@@ -37,8 +37,25 @@ class Hero < ActiveRecord::Base
     end
   end
 
+  def win_ratio
+    (wins.count.to_f/number_of_fights*100).round(2)
+  end
+
+  def number_of_fights
+    wins.count + loses.count
+  end
+
   def total_power
     skills.pluck(:level).sum
+  end
+
+  def avg_exp
+    exp = wins.pluck(:gained_exp)
+    (exp.inject{ |sum, el| sum + el }.to_f / exp.size).round(2)
+  end
+
+  def fav_weather
+    weather = wins.pluck(:weather).group_by(&:itself).values.max_by(&:size).first.capitalize
   end
 
   def avatar_url

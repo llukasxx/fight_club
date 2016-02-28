@@ -1,7 +1,7 @@
 class HeroesController < ApplicationController
 
   def index
-    @heroes = Hero.all.includes(:skills)
+    @heroes = Hero.all.includes(:skills).order('experience DESC')
     respond_to do |format|
       format.html
       format.json { render json: @heroes }
