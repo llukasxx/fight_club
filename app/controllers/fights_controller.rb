@@ -32,7 +32,7 @@ class FightsController < ApplicationController
       fight.winner.save!
       render json: fight
     else
-      render json: fight.erros
+      render json: fight.errors
     end
   end
 

@@ -74,4 +74,37 @@ RSpec.describe Hero, type: :model do
     
   end
 
+  describe '#level' do
+    before(:each) do
+      @hero = create(:hero_with_skills)
+    end
+
+    context "newly created hero" do
+      it "has level 1" do
+        expect(@hero.level).to eq 1
+      end
+
+      it "has no experience" do
+        expect(@hero.experience).to eq 0
+      end
+    end
+
+    context "with some experience" do
+
+      it "has 3 level with 90 point of experience" do
+        @hero.experience += 90
+        @hero.save!
+
+        expect(@hero.level).to eq 3
+      end
+    end
+  end
+
+  describe "#current_level_percentage" do
+    it "returns proper percentage" do
+      @hero = create(:hero_with_skills, experience: 45)
+      expect(@hero.current_level_percentage).to eq 50
+    end
+  end
+
 end
