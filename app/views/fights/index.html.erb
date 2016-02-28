@@ -1,0 +1,25 @@
+<div class="container">
+  <h1>Recent fights:</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Winner</th>
+        <th>Loser</th>
+        <th>Winer's chance</th>
+        <th>Gained experience</th>
+        <th>Weather</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @fights.each do |f|%>
+      <tr>
+        <td><%= link_to "#{f.winner.first_name} #{f.winner.last_name}", f.winner%></td>
+        <td><%= link_to "#{f.loser.first_name} #{f.loser.last_name}", f.loser %></td>
+        <td><%= f.winner_chance %>%</td>
+        <td><%= f.gained_exp %></td>
+        <td><%= f.weather %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

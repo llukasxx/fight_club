@@ -26,12 +26,23 @@ class Hero < ActiveRecord::Base
     end
   end
 
+  def current_level_percentage
+    case level
+      when 1 then experience*100/30
+      when 2 then experience*100/90
+      when 3 then experience*100/270
+      when 4 then experience*100/810
+      when 5 then experience*100/2430
+      when 6 then 100
+    end
+  end
+
   def total_power
     skills.pluck(:level).sum
   end
 
   def avatar_url
-    avatar.url
+    avatar.url || '/noavatar.jpeg'
   end
 
   def wind_power

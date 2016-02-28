@@ -1,8 +1,11 @@
 class HeroesController < ApplicationController
 
   def index
-    heroes = Hero.all.includes(:skills)
-    render json: heroes
+    @heroes = Hero.all.includes(:skills)
+    respond_to do |format|
+      format.html
+      format.json { render json: @heroes }
+    end
   end
 
   def new
@@ -10,6 +13,10 @@ class HeroesController < ApplicationController
 
   def show
     @hero = Hero.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render json: @hero }
+    end
   end
 
   def create

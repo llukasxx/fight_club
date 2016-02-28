@@ -1,1 +1,45 @@
-<%= image_tag(@hero.avatar.url)%>
+<div class="container">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Hero's details</h3>
+    </div>
+    <div class="panel-body">
+      <div class="media">
+        <div class="media-left">
+          <%= image_tag(@hero.avatar_url)%>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading"><%= @hero.first_name + " " + @hero.last_name%></h4>
+          <%= @hero.description %>
+          <hr />
+          <b>Skills:</b>
+          <% @hero.skills.each do |s| %>
+            <%= s.name %>
+            <%= content_tag :span, class: "badge #{s.element}"  do %>
+              <%= "#{s.level}" %>/5
+            <% end %>
+          <% end %>
+          <br />
+          <small><i>*colour represents skill element</i></small>
+          <br />
+          <b>Experience:</b>
+          <div class="progress">
+            <div class="progress-bar progress-bar-success progress-bar-striped" 
+                  role="progressbar" aria-valuenow="40" aria-valuemin="0" 
+                  aria-valuemax="100" style=<%= "width:" "#{@hero.current_level_percentage}%"%>>
+            <span class="black">level<%= @hero.level %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <ul class="list-group">
+        <li class="list-group-item">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Morbi leo risus</li>
+        <li class="list-group-item">Porta ac consectetur ac</li>
+        <li class="list-group-item">Vestibulum at eros</li>
+      </ul>
+    </div>
+  </div>
+</div>

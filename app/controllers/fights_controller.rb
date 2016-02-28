@@ -1,6 +1,6 @@
 class FightsController < ApplicationController
   def index
-
+    @fights = Fight.all.order('created_at DESC')
   end
 
   def new
@@ -116,14 +116,14 @@ class FightsController < ApplicationController
 
     def calc_weather_mod(hero, weather)
       case weather
-      when "windy"
-        (hero.wind_power * 2) + (hero.earth_power * -2)
-      when "rainy"
-        (hero.water_power * 2) + (hero.fire_power * -2)
-      when "dry"
-        (hero.earth_power * 2) + (hero.water_power * -2)
-      when "hot"
-        (hero.fire_power * 2) + (hero.wind_power * -2)
+        when "windy"
+          (hero.wind_power * 2) + (hero.earth_power * -2)
+        when "rainy"
+          (hero.water_power * 2) + (hero.fire_power * -2)
+        when "dry"
+          (hero.earth_power * 2) + (hero.water_power * -2)
+        when "hot"
+          (hero.fire_power * 2) + (hero.wind_power * -2)
       end
     end
 
