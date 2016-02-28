@@ -18,8 +18,7 @@ RSpec.describe HeroesController, type: :controller do
 
   describe "GET #show" do
     before(:each) do
-      @hero = build(:hero)
-      3.times {@hero.skills.new(name: 'punch', element: "fire", level: 2)}
+      @hero = build(:hero_with_skills)
       @hero.save!
     end
     it "returns http success" do

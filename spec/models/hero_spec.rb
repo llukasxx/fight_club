@@ -14,7 +14,7 @@ RSpec.describe Hero, type: :model do
     context "count" do
 
       before(:each) do
-        @hero = build(:hero)
+        @hero = FactoryGirl.build(:hero)
       end
 
       it "is invalid without skills" do
@@ -39,7 +39,7 @@ RSpec.describe Hero, type: :model do
 
     context "total power" do
       before(:each) do
-        @hero = build(:hero)
+        @hero = FactoryGirl.build(:hero)
       end
 
       it "is invalid with not enough power" do
@@ -63,7 +63,7 @@ RSpec.describe Hero, type: :model do
   describe '#total_power' do
 
     before(:each) do
-      @hero = build(:hero)
+      @hero = FactoryGirl.build(:hero)
       3.times { @hero.skills.new(name: "power punch", level: 2, element: "water") }
       @hero.save!
     end

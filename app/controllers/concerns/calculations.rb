@@ -95,6 +95,7 @@ module Calculations
   end
 
   def calc_gained_exp(chances)
+    raise ArgumentError.new("Chances cannot exceed 100") if chances > 100
     case chances
       when 0..4 then 28
       when 5..9 then 26
