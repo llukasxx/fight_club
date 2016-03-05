@@ -25,6 +25,9 @@ class ExperienceBar extends React.Component {
       case 6:
         return "100%"
         break;
+      default:
+        return "0%"
+        break;
     };
   }
   componentDidMount() {
@@ -39,7 +42,7 @@ class ExperienceBar extends React.Component {
         <div className="progress-bar progress-bar-success progress-bar-striped" 
         role="progressbar" aria-valuenow="40" aria-valuemin="0" 
         aria-valuemax="100" style={{width: this.state.experience}}>
-        <span className="black">level{this.props.level}</span>
+        <span className="black pull-left">level{this.props.level}</span>
         </div>
       </div>
     )

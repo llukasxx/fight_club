@@ -8,7 +8,7 @@ class OponentWindow extends React.Component {
         <HeroListItem avatarSrc={this.props.hero.avatar_url} skills={this.props.hero.skills}
                       description={this.props.hero.description} id={this.props.hero.id}
                       firstName={this.props.hero.first_name} lastName={this.props.hero.last_name}
-                      level={this.props.hero.level}
+                      level={this.props.hero.level} experience={this.props.hero.experience}
                       battlefield={true} />
       </div>
     )
